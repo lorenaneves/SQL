@@ -1,0 +1,40 @@
+--Find name of tracks at one specific album
+SELECT tracks.Name, albums.Title
+FROM tracks
+  INNER JOIN albums
+  ON albums.albumId = tracks.albumID 
+    WHERE albums.Title = 'Californication'
+    
+--join, count, group by
+SELECT customers.FirstName, customers.LastName, customers.City, customers.Email, count (invoices.InvoiceId)
+FROM customers
+  INNER JOIN invoices
+  ON customers.CustomerId = invoices.CustomerId
+    GROUP BY customers.CustomerId
+    
+--retrieve things from two tables
+SELECT tracks.Name, albums.Title, albums.ArtistID, tracks.trackId
+FROM albums
+  INNER JOIN tracks 
+  ON albums.albumID = tracks.albumID
+  
+-- left join and null
+SELECT artists.Name, artists.ArtistId, albums.Title
+FROM artists
+  LEFT JOIN albums
+  ON artists.ArtistId = albums.ArtistId
+    WHERE albums.AlbumId is NULL
+    
+--union and order by
+SELECT employees.FirstName, employees.LastName
+FROM employees
+  UNION SELECT customers.FirstName, customers.LastName
+  FROM customers
+  order by customers.LastName desc 
+  
+-- join divergent
+SELECT customers.CustomerId, customers.City, invoices.BillingCity
+FROM customers
+  INNER JOIN invoices
+  ON customers.CustomerId = invoices.CustomerId
+    WHERE customers. City <> invoices.BillingCity 
