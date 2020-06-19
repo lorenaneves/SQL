@@ -1,0 +1,34 @@
+--two different tables found an especific thing
+SELECT COUNT (albumid) as CountAlbums
+FROM albums 
+  WHERE artistid = 
+    (SELECT artistid FROM artists WHERE name = 'Led Zeppelin')
+
+--three different tables list, select two coluns of a specific data
+SELECT albums.title, tracks.unitprice
+FROM albums
+  INNER JOIN artists
+  ON albums.artistid = artists.artistid
+    INNER JOIN tracks
+    ON albums.albumid = tracks.albumid
+    WHERE artists.name = 'Audioslave'
+    
+-- finn null invoice
+SELECT customers.FirstName, customers.LastName, invoices.invoiceID
+FROM customers
+  INNER JOIN invoices
+  ON customers.customerId = invoices.customerId
+    WHERE invoices.invoiceId is null
+    
+--  price
+SELECT albums.Title, sum (tracks.unitprice) as Price, count (tracks.trackid) as No
+FROM albums
+  INNER JOIN tracks
+  ON albums.albumId = tracks.albumId
+    WHERE albums.title = 'Big Ones'
+    GROUP BY albums.albumId
+    
+-- cartesian join
+SELECT invoices.invoiceid
+FROM invoices
+  CROSS JOIN invoice_items
