@@ -1,0 +1,31 @@
+-- concat and upper
+SELECT customers.FirstName || ' ' || customers.LastName as 'Full Name',
+customers.Address,
+UPPER(customers.City || ', ' || customers.Country) as Location
+FROM customers
+
+--substr, concat, lower
+SELECT LOWER (substr(FirstName,1,4)||substr(LastName,1,2))
+AS 'New employee user ID'
+FROM employees
+WHERE FirstName = 'Robert'
+
+--date now, order by
+SELECT LastName, HireDate
+FROM employees
+WHERE date ('now') - HireDate >= 15
+order by lastname asc
+
+--
+SELECT city, count (customerID) as 'No. of costumers'
+FROM customers
+  --where 'No. of costumers' = '2'
+GROUP BY city
+ORDER BY count(customerID) desc 
+
+--
+SELECT  (customers.FirstName || customers.LastName || invoices.invoiceid) as 'New customer invoice'
+FROM customers
+JOIN invoices
+WHERE customers.Customerid = invoices.Customerid
+ORDER BY firstname, lastname, invoiceid
